@@ -404,7 +404,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const header = () => parseFloat(getComputedStyle(sticky).top) || 0;
     const layout = () => {
-      pinned = !calm && window.innerHeight >= 540; // below this a whole card can't fit while pinned
+      // V21: the pin is off for everyone. iPhone Safari fought the pinned
+      // scroll-to-slide, so the gallery is now always a plain row of cards you
+      // swipe sideways (native scrolling with snap); vertical swipes just scroll
+      // the page past it. The pinned code below is kept but never runs.
+      pinned = false;
       pin.classList.toggle('is-pinned', pinned);
       if (!pinned) { pin.style.height = ''; track.style.transform = ''; return; }
       // Slide until the last card has the same gap from the right edge as the
