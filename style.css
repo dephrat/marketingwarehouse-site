@@ -439,7 +439,7 @@ main > section:not(.hero3d):not(.stats):not(.proof) {
 .hl { padding-top: 8px; }
 .hl-track {
   --edge: max(20px, calc((100vw - var(--wrap)) / 2 + 20px));
-  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--edge);
+  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: none; /* V21: free momentum glide, no snapping */ scroll-padding-inline: var(--edge);
   padding: 6px var(--edge) 28px; margin: 0; list-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch;
 }
 .hl-track::-webkit-scrollbar { display: none; }
