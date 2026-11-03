@@ -402,13 +402,15 @@ document.addEventListener('DOMContentLoaded', () => {
       items.forEach((item, i) => item.classList.toggle('is-active', i === active));
       dots.forEach((dot, i) => dot.setAttribute('aria-current', i === active ? 'true' : 'false'));
     };
+    const touchFirst = window.matchMedia('(hover: none) and (pointer: coarse)');
+    touchFirst.addEventListener?.('change', () => layout());
     const header = () => parseFloat(getComputedStyle(sticky).top) || 0;
     const layout = () => {
-      // V21: the pin is off for everyone. iPhone Safari fought the pinned
-      // scroll-to-slide, so the gallery is now always a plain row of cards you
-      // swipe sideways (native scrolling with snap); vertical swipes just scroll
-      // the page past it. The pinned code below is kept but never runs.
-      pinned = false;
+      // V21: no pin on touchscreens (phones, tablets). iPhone Safari fought the
+      // pinned scroll-to-slide, so there the gallery is a plain row of cards
+      // you swipe sideways, gliding freely; vertical swipes just scroll the page
+      // past it. Mouse and trackpad visitors keep the pin.
+      pinned = !calm && !touchFirst.matches && window.innerHeight >= 540; // below this a whole card can't fit while pinned
       pin.classList.toggle('is-pinned', pinned);
       if (!pinned) { pin.style.height = ''; track.style.transform = ''; return; }
       // Slide until the last card has the same gap from the right edge as the
